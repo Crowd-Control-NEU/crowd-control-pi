@@ -1,0 +1,10 @@
+{
+"SN":1234,
+"sensorInfo":
+{
+	"type":"Parallax",
+	"leadPin":7,
+	"followerPin":11
+}
+
+}
