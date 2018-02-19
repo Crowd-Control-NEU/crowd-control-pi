@@ -8,7 +8,7 @@ class Counter:
         index = 1;
         while readingsQueue not empty:
             nextItem = readingsQueue(index)
-            if item.channel == outside and outside == null:
+            if nextItem(1) != currentItem(1):
                 firstOutsideSpot = item.time 
             if item.channel == inside and inside == null:
                 firstInsideSpot = item.time
@@ -20,4 +20,3 @@ class Counter:
                 readingsQueue.remove(currentItem)
                 currentItem = readingsQueue(currentItemIndex++)
            index++
-           #Have a current and next item. Update current item when it is counted. If end of the list 
