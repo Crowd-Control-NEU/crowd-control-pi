@@ -3,7 +3,7 @@ from datetime import datetime
 import queue
 class sensorRead():
     def __init__(self, inputPins = [1, 1]):
-        self.ReadingQueue = queue.Queue()
+        self.ReadingQueue = []
         self.leadingSensor = inputPins[0]
         self.followSensor = inputPins[1]
         GPIO.setwarnings(False)
@@ -15,7 +15,7 @@ class sensorRead():
         GPIO.add_event_detect(self.followSensor, GPIO.RISING, callback=self.readCallback, bouncetime=30)
     def readCallback(self, channel):
         readinTime = datetime.now() 
-        self.ReadingQueue.put([channel, readinTime])
+        self.ReadingQueue.append([channel, readinTime])
         print(channel)
         print('Get it here first, the count is ', self.ReadingQueue.qsize())
     def checkOn(self):

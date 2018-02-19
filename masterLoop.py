@@ -15,19 +15,16 @@ class masterLoop:
         self.counter = Counter()
         self.lastUpdate = datetime.datetime.now()	
         self.run()
-of a        
     def run(self):
         while(self.stillRunning):
             if  datetime.datetime.now() - self.lastUpdate > datetime.timedelta(seconds = 20):
-                self.counter.update(self.sensorRead.ReadingQueue)            time.sleep(.1)    
-            #self.countHuman.update(sensorInput)
-            #decide between reading in loop or use event based system (Advantage only get highs, easier to process repeat)
+                count = self.counter.update(self.sensorRead.ReadingQueue)
+                time.sleep(.1)
             #check for count
                 #In count object keep queue of inputted signals
                 #When queue is full figure out the count
                 #set update object for post to check 
             #check posts
-            #
         self.__del__()
     def countUpdate(self):
         pass
