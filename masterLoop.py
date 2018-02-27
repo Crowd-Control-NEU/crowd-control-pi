@@ -5,6 +5,7 @@ from counter import Counter
 #import htmlClass
 import time
 import json
+import requests
 class masterLoop:
     def __init__(self, fileName):
         settings = masterLoop.loadPiSettings(fileName)
@@ -12,14 +13,16 @@ class masterLoop:
         self.sensorControl = sensorRead(pins)
         print("Sensor Set Up.")
         self.stillRunning = True
-        self.counter = Counter(pins, [.5, 1.5])
+        self.counter = Counter(pins, [.1, 1.5])
         self.lastUpdate = datetime.datetime.now()
         self.totalCount = 0
         self.run()
     def run(self):
         while(self.stillRunning):
-            if  datetime.datetime.now() - self.lastUpdate > datetime.timedelta(seconds = 10):
+            if  datetime.datetime.now() - self.lastUpdate > datetime.timedelta(seconds = 2):
                 count = self.counter.update(self.sensorControl.ReadingQueue)
+                if count != 0:
+                    self.postData(count)
                 self.totalCount = self.totalCount + count
                 print('Total Count of Pi', self.totalCount)
                 self.lastUpdate = datetime.datetime.now()
@@ -30,6 +33,7 @@ class masterLoop:
                 #set update object for post to check 
             #check posts
         self.__del__()
+    
     def countUpdate(self):
         pass
     def loadPiSettings(fileName):
@@ -38,5 +42,16 @@ class masterLoop:
         print(configSettings)
         print("JSON LOADED")
         return configSettings
+    
+    def postData(self, count):
+        API_ENDPOINT = 'https://infinite-peak-11670.herokuapp.com/data-add'
+        location = 'Rebeccas'
+        data = {
+            'location_name': location,
+            'count': count,
+        }
+        r = requests.post(url = API_ENDPOINT, data = data)
+        print(location + ' ' + r.text)
+        
     def __del__(self):
         self.sensorControl.__del__()

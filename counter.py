@@ -27,9 +27,11 @@ class Counter:
                 if currentItem[0] == self.channelIds[outside]:
                      self.count = self.count + 1
                      print('Person entered')
+                     print('Time of walkthrough', abs( datetime.datetime.combine(datetime.date.min, currentItem[1]) - datetime.datetime.combine(datetime.date.min, nextItem[1])))
                 elif currentItem[0] == self.channelIds[inside]:
                     self.count = self.count - 1
                     print('Person Exits')
+                    print('Time of walkthrough', abs( datetime.datetime.combine(datetime.date.min, currentItem[1]) - datetime.datetime.combine(datetime.date.min, nextItem[1])))
                 readingsQueue.remove(currentItem)
                 readingsQueue.remove(nextItem)
                 if not readingsQueue:

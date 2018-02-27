@@ -11,9 +11,10 @@ class sensorRead():
         GPIO.setup(self.leadingSensor, GPIO.IN)
         GPIO.setup(self.followSensor, GPIO.IN)  #Read output from PIR motion sensor
         print('Leading Sensor Numbers', self.leadingSensor)
-        GPIO.add_event_detect(self.leadingSensor, GPIO.RISING, callback=self.readCallback, bouncetime=30)
-        GPIO.add_event_detect(self.followSensor, GPIO.RISING, callback=self.readCallback, bouncetime=30)
+        GPIO.add_event_detect(self.leadingSensor, GPIO.RISING, callback=self.readCallback, bouncetime=320)
+        GPIO.add_event_detect(self.followSensor, GPIO.RISING, callback=self.readCallback, bouncetime=320)
     def readCallback(self, channel):
+        print(channel)
         readinTime = datetime.time(datetime.now()) 
         self.ReadingQueue.append([channel, readinTime])
     def checkOn(self):
