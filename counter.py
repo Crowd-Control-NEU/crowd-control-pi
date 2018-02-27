@@ -6,8 +6,10 @@ class Counter:
         self.timeControl = (datetime.timedelta(seconds = timeControl[0]),datetime.timedelta(seconds = timeControl[1]))
         self.extraReading = ''
     def update(self, readingsQueue):
+	print(readingsQueue)
         if not readingsQueue:
-            print('Empty Reading Queue')
+            #self.resetExtraReading()
+	    print('Empty Reading Queue')
             return 0
         elif len(readingsQueue) ==1:
             self.extraReading = readingsQueue[0]
@@ -52,8 +54,11 @@ class Counter:
                 index = 1
         return self.count
            #Have a current and next item. Update current item when it is counted. If end of the list
+    
     def checkTimeControl(self, currentTime, nextTime):
          diffTime = abs( datetime.datetime.combine(datetime.date.min, currentTime) - datetime.datetime.combine(datetime.date.min, nextTime))
-         if diffTime > self.timeControl[0] and diffTime < self.timeControl[1]:
+	 print('Difference in time is')
+	 print(diffTime)
+	 if diffTime > self.timeControl[0] and diffTime < self.timeControl[1]:
              return True
          else: return False

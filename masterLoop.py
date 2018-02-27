@@ -19,12 +19,13 @@ class masterLoop:
         self.run()
     def run(self):
         while(self.stillRunning):
-            if  datetime.datetime.now() - self.lastUpdate > datetime.timedelta(seconds = 2):
+            if  datetime.datetime.now() - self.lastUpdate > datetime.timedelta(seconds = 10):
                 count = self.counter.update(self.sensorControl.ReadingQueue)
-                if count != 0:
+                #print('Returned Count from Counter is '+ str(count))
+		if count != 0:
                     self.postData(count)
                 self.totalCount = self.totalCount + count
-                print('Total Count of Pi', self.totalCount)
+                #print('Total Count of Pi', self.totalCount)
                 self.lastUpdate = datetime.datetime.now()
                 time.sleep(.1)
             #check for count
@@ -36,6 +37,7 @@ class masterLoop:
     
     def countUpdate(self):
         pass
+    @staticmethod
     def loadPiSettings(fileName):
         with open(fileName) as jsonFile:
             configSettings = json.load(jsonFile)
