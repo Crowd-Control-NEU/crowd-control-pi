@@ -13,7 +13,7 @@ class masterLoop:
         self.sensorControl = sensorRead(pins)
         print("Sensor Set Up.")
         self.stillRunning = True
-        self.counter = Counter(pins, [.1, 1.5])
+        self.counter = Counter(pins, [.0001, 3.5])
         self.lastUpdate = datetime.datetime.now()
         self.totalCount = 0
         self.run()
@@ -25,7 +25,7 @@ class masterLoop:
 		if count != 0:
                     self.postData(count)
                 self.totalCount = self.totalCount + count
-                #print('Total Count of Pi', self.totalCount)
+                print('Total Count of Pi', self.totalCount)
                 self.lastUpdate = datetime.datetime.now()
                 time.sleep(.1)
             #check for count
@@ -53,7 +53,7 @@ class masterLoop:
             'count': count,
         }
         r = requests.post(url = API_ENDPOINT, data = data)
-        print(location + ' ' + r.text)
+        #print(location + ' ' + r.text)
         
     def __del__(self):
         self.sensorControl.__del__()

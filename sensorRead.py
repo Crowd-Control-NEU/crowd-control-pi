@@ -16,16 +16,15 @@ class sensorRead():
 	startupTime = datetime.time(datetime.now())
 	self.lastUpdateTime = [startupTime, startupTime]
     def readCallback(self, channel):
-        print(channel)
-        readinTime = datetime.time(datetime.now()) 
+        readinTime = datetime.time(datetime.now())
         if channel == self.leadingSensor:
 		timeCheck = 0
-	else: timeCheck = 1
+	else:
+    		timeCheck = 1
 	if datetime.combine(date.today(), readinTime) - datetime.combine(date.today(), self.lastUpdateTime[timeCheck]) > timedelta(seconds = 4): 
 		self.ReadingQueue.append([channel, readinTime])
 		self.lastUpdateTime[timeCheck] = readinTime
-		print('Added to Queue')
-	else:print('Nothing added to Queues')
+	else:pass
 		
     def checkOn(self):
         pass

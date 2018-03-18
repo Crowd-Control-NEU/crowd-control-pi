@@ -9,7 +9,6 @@ class Counter:
 	print(readingsQueue)
         if not readingsQueue:
             #self.resetExtraReading()
-	    print('Empty Reading Queue')
             return 0
         elif len(readingsQueue) ==1:
             self.extraReading = readingsQueue[0]
@@ -28,12 +27,8 @@ class Counter:
             if currentItem[0] != nextItem[0] and self.checkTimeControl(currentItem[1], nextItem[1]):
                 if currentItem[0] == self.channelIds[outside]:
                      self.count = self.count + 1
-                     print('Person entered')
-                     print('Time of walkthrough', abs( datetime.datetime.combine(datetime.date.min, currentItem[1]) - datetime.datetime.combine(datetime.date.min, nextItem[1])))
                 elif currentItem[0] == self.channelIds[inside]:
                     self.count = self.count - 1
-                    print('Person Exits')
-                    print('Time of walkthrough', abs( datetime.datetime.combine(datetime.date.min, currentItem[1]) - datetime.datetime.combine(datetime.date.min, nextItem[1])))
                 readingsQueue.remove(currentItem)
                 readingsQueue.remove(nextItem)
                 if not readingsQueue:
@@ -57,8 +52,11 @@ class Counter:
     
     def checkTimeControl(self, currentTime, nextTime):
          diffTime = abs( datetime.datetime.combine(datetime.date.min, currentTime) - datetime.datetime.combine(datetime.date.min, nextTime))
-	 print('Difference in time is')
-	 print(diffTime)
 	 if diffTime > self.timeControl[0] and diffTime < self.timeControl[1]:
-             return True
-         else: return False
+		print('Pass with time')
+		print(diffTime)
+		return True
+         else: 
+		print('Fail with time')
+		print(diffTime)
+		return False
